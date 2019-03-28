@@ -3,6 +3,8 @@ package com.viadesk.tests;
 import com.viadesk.webpages.DashboardPage;
 import com.viadesk.webpages.LoginPage;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -23,25 +25,28 @@ public class RunTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-
-    @Test
+    @DisplayName("Try login with proper credential")
+    @ParameterizedTest(name = "run #{index} with [{arguments}]")
     @Order(1)
-    public void validLogin() throws InterruptedException {
+    @CsvFileSource(resources = "/ValidLoginData.csv")
+    public void validLogin(String userEmail, String userPassword) throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.setEmailInput("rubel@metatude.com");
-        loginPage.setPasswordInput("test");
+        loginPage.setEmailInput(userEmail);
+        loginPage.setPasswordInput(userPassword);
         Thread.sleep(2000);
         loginPage.clickLoginButton();
         Thread.sleep(2000);
         assertFalse(loginPage.isElementExist());
     }
 
-    @Test
+    @DisplayName("Try login with invalid credential")
+    @ParameterizedTest(name = "run #{index} with [{arguments}]")
+    @CsvFileSource(resources = "/InvalidLoginData.csv")
     @Order(3)
-    public void inValidLogin() throws InterruptedException {
+    public void invalidLogin(String userEmail, String userPassword) throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.setEmailInput("rubel@metatude.com");
-        loginPage.setPasswordInput("test1");
+        loginPage.setEmailInput(userEmail);
+        loginPage.setPasswordInput(userPassword);
         Thread.sleep(2000);
         loginPage.clickLoginButton();
         Thread.sleep(2000);
@@ -53,7 +58,7 @@ public class RunTest {
     public void testClickOnPortal() throws InterruptedException {
         DashboardPage dashboardPage = new DashboardPage(driver);
         dashboardPage.clickOnPortal();
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
     }
 
     @AfterAll
