@@ -41,7 +41,7 @@ public class RunTest {
     public void inValidLogin() throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.setEmailInput("rubel@metatude.com");
-        loginPage.setPasswordInput("test");
+        loginPage.setPasswordInput("test1");
         Thread.sleep(2000);
         loginPage.clickLoginButton();
         Thread.sleep(2000);
