@@ -20,10 +20,11 @@ public class RunTest {
 
     @BeforeAll
     public static void launchBrowser() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\muhin\\IdeaProjects\\viadeskLoginDemo\\chromedriver\\chromedriver.exe");
+        String sysPath = System.getProperty("user.dir");
+        System.setProperty("webdriver.chrome.driver", sysPath + "\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
     @DisplayName("Try login with proper credential")
     @ParameterizedTest(name = "run #{index} with [{arguments}]")
