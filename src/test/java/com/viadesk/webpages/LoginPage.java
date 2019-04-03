@@ -12,14 +12,14 @@ public class LoginPage {
     private String userEmail;
     private String userPassword;
 
-    @FindBy(xpath = "//*[starts-with(@id,'emailInput')]")
+    @FindBy(xpath = "//*[starts-with(@id,'emailInput_')]")
     private WebElement emailInput;
-    @FindBy(xpath = "//*[starts-with(@id,'passwordInput')]")
+    @FindBy(xpath = "//*[starts-with(@id,'passwordInput_')]")
     private WebElement passwordInput;
-    @FindBy(xpath = "//*[starts-with(@id,'submitButton')]")
+    @FindBy(xpath = "//*[starts-with(@id,'submitButton_')]")
     private WebElement loginButton;
-    //@FindBy(xpath = "//*[starts-with(@id,'errorLabel')]")
-    //private WebElement errorLabel;
+    @FindBy(xpath = "//*[starts-with(@id,'errorLabel_')]")
+    private WebElement errorLabel;
 
 
     public LoginPage(WebDriver driver) {
@@ -40,9 +40,12 @@ public class LoginPage {
     public void clickLoginButton(){
         loginButton.click();
     }
-    public boolean isElementExist(){
-        if(!driver.findElements(By.xpath("//*[starts-with(@id,'errorLabel')]")).isEmpty()) {
+    public boolean isErrorMessageExist(){
+        if(!driver.findElements(By.xpath("//*[starts-with(@id,'errorLabel_')]")).isEmpty()) {
             return true;
         } else return false;
+    }
+    public WebElement getErrorMessageLabel(){
+        return errorLabel;
     }
 }
